@@ -1,6 +1,7 @@
 package tech.henskens.portfolioservice.service;
 
 import com.couchbase.client.java.query.QueryScanConsistency;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
@@ -12,31 +13,39 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableCouchbaseRepositories(basePackages = {"tech.henskens.portfolioservice.repository"})
 public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
 
-    public static final String NODE_LIST = "127.0.0.1";
-    public static final String BUCKET_NAME = "portfolio";
-    public static final String BUCKET_USERNAME = "Administrator";
-    public static final String BUCKET_PASSWORD = "g9VNheVwrF@!3wS";
+    @Value("${couchbase.hostname}")
+    private String couchbaseHostname;
 
+    @Value("${couchbase.bucketName}")
+    private String bucketName;
+
+    @Value("${couchbase.bucketUsername}")
+    private String bucketUsername;
+
+    @Value("${couchbase.bucketPassword}")
+    private String bucketPassword;
 
     @Override
     public String getConnectionString() {
-        return NODE_LIST + ":8091";
+        return couchbaseHostname ; // Use the injected value
     }
 
     @Override
     public String getUserName() {
-        return BUCKET_USERNAME;
+        return bucketUsername; // Use the injected value
     }
 
     @Override
     public String getPassword() {
-        return BUCKET_PASSWORD;
+        return bucketPassword; // Use the injected value
     }
 
     @Override
     public String getBucketName() {
-        return BUCKET_NAME;
+        return bucketName; // Use the injected value
     }
+
+    // Rest of your configuration...
 
     @Override
     public QueryScanConsistency getDefaultConsistency() {
