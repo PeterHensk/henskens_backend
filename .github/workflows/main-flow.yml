@@ -3,9 +3,9 @@ name: Build and deliver containers
 on: push
 
 jobs:
-  productservice:
+  portfolioservice:
     runs-on: ubuntu-latest
-    name: Java 17 build, test, deliver product-service container
+    name: Java 17 build, test, deliver portfolio-service container
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -18,20 +18,20 @@ jobs:
           distribution: adopt
       
       - name: Build, test and package project
-        working-directory: ./product-service
+        working-directory: ./portfolio-service
         run: mvn package -DskipTests
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/product-service:latest ./product-service
+        run: docker build -t ${{ secrets.DOCKER_USER }}/portfolio-service:latest ./portfolio-service
 
       - name: Upload container to Docker Hub with Push
-        run: docker push ${{ secrets.DOCKER_USER }}/product-service:latest
-  inventoryservice:
+        run: docker push ${{ secrets.DOCKER_USER }}/portfolio-service:latest
+  henskensservice:
     runs-on: ubuntu-latest
-    name: Java 17 build, test, deliver inventory-service container
+    name: Java 17 build, test, deliver henskens-service container
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -44,46 +44,20 @@ jobs:
           distribution: adopt
 
       - name: Build, test and package project
-        working-directory: ./inventory-service
+        working-directory: ./henskens-service
         run: mvn package -DskipTests
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/inventory-service:latest ./inventory-service
+        run: docker build -t ${{ secrets.DOCKER_USER }}/henskens-service:latest ./henskens-service
 
       - name: Upload container to Docker Hub with Push
-        run: docker push ${{ secrets.DOCKER_USER }}/inventory-service:latest
-  orderservice:
-    runs-on: ubuntu-latest
-    name: Java 17 build, test, deliver order-service container
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          cache: maven
-          distribution: adopt
-        
-      - name: Build, test and package project
-        working-directory: ./order-service
-        run: mvn package -DskipTests
-        
-      - name: Docker login
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/order-service:latest ./order-service
-
-      - name: Upload container to Docker Hub with Push
-        run: docker push ${{ secrets.DOCKER_USER }}/order-service:latest
+        run: docker push ${{ secrets.DOCKER_USER }}/henskens-service:latest
   apigateway:
     runs-on: ubuntu-latest
-    name: Java 17 build, test, deliver ede-api-gateway container
+    name: Java 17 build, test, deliver api-gateway container
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -103,7 +77,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/ede-api-gateway:latest ./api-gateway
+        run: docker build -t ${{ secrets.DOCKER_USER }}/api-gateway:latest ./api-gateway
 
       - name: Upload container to Docker Hub with Push
-        run: docker push ${{ secrets.DOCKER_USER }}/ede-api-gateway:latest
+        run: docker push ${{ secrets.DOCKER_USER }}/api-gateway:latest
