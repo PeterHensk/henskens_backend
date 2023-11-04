@@ -12,7 +12,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableCouchbaseRepositories(basePackages = {"tech.henskens.portfolioservice.repository"})
 public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
 
-    public static final String NODE_LIST = "localhost";
+    public static final String NODE_LIST = "127.0.0.1";
     public static final String BUCKET_NAME = "portfolio";
     public static final String BUCKET_USERNAME = "Administrator";
     public static final String BUCKET_PASSWORD = "g9VNheVwrF@!3wS";
@@ -20,7 +20,7 @@ public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
 
     @Override
     public String getConnectionString() {
-        return NODE_LIST;
+        return NODE_LIST + ":8091";
     }
 
     @Override
@@ -37,7 +37,6 @@ public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
     public String getBucketName() {
         return BUCKET_NAME;
     }
-
 
     @Override
     public QueryScanConsistency getDefaultConsistency() {
