@@ -1,0 +1,10 @@
+fact\it\productservice\dto\ProductRequest.class
+fact\it\productservice\dto\ProductResponse$ProductResponseBuilder.class
+fact\it\productservice\model\Product.class
+fact\it\productservice\dto\ProductRequest$ProductRequestBuilder.class
+fact\it\productservice\model\Product$ProductBuilder.class
+fact\it\productservice\service\ProductService.class
+fact\it\productservice\controller\ProductController.class
+fact\it\productservice\dto\ProductResponse.class
+fact\it\productservice\PortfolioServiceApplication.class
+fact\it\productservice\repository\ProductRepository.class
