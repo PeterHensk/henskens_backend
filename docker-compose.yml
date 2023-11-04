@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  henskens-service:
+    build:
+      context: ./henskens-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - couchbase
+    image: peterhenskens/henskens-service
+
+  portfolio-service:
+    build:
+      context: ./portfolio-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo-portfolio
+    image: peterhenskens/product-service
+    links:
+        - mongo-portfolio
+    environment:
+        MONGODB_PORT: 27017
+        MONGODB_HOST: mongo-portfolio
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "8765:8765"
+    depends_on:
+      - henskens-service
+      - portfolio-service
+    image: peterhenskens/api-gateway
+    ports:
+     - 8083:8083
+   links:
+     - portfolio-service
+     - henskens-service
+   environment:
+     HENSKENS_SERVICE_BASEURL: henskens-service:8080
+     PORTFOLIO_SERVICE_BASEURL: portfolio-service:8081
+
+  couchbase:
+    image: couchbase:latest
+    ports:
+      - "8091:8091"
+    environment:
+      COUCHBASE_ROOT_PASSWORD: g9VNheVwrF@!3wS
+      COUCHBASE_BUCKET: portfolio
+      COUCHBASE_BUCKET_PASSWORD: g9VNheVwrF@!3wS
+    volumes:
+      - couchbase-data:/opt/couchbase/var
+
+  mongo-portfolio:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: administrator
+      MONGO_INITDB_ROOT_PASSWORD: g9VNheVwrF3wS
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  couchbase-data:
+  mongodb-data:
