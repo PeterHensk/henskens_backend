@@ -2,13 +2,12 @@ version: '3'
 
 services:
   henskens-service:
-    network_mode: "host"
     build:
       context: ./henskens-service
     ports:
       - "8080:8080"
     depends_on:
-      - couchbase
+      - couchbase-henskens
     image: peterhenskens/henskens-service
 
   portfolio-service:
@@ -41,7 +40,7 @@ services:
      HENSKENS_SERVICE_BASEURL: henskens-service:8080
      PORTFOLIO_SERVICE_BASEURL: portfolio-service:8081
 
-  couchbase:
+  couchbase-henskens:
     image: couchbase:latest
     ports:
       - "8091:8091"
