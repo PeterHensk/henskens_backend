@@ -1,0 +1,35 @@
+server:
+  port: 8083
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    reactor.netty: TRACE
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: henskens-service
+          uri: http://${HENSKENS_SERVICE_BASEURL:localhost:8080}
+          predicates:
+            - Path=/all_accounts
+            - Method=GET
+          filters:
+            - SetPath=/api/account/all
+        - id: signup-service
+          uri: http://${HENSKENS_SERVICE_BASEURL:localhost:8080}
+          predicates:
+            - Path=/signup
+            - Method=POST
+          filters:
+            - SetPath=/api/account/register
+        - id: signin-service
+          uri: http://${HENSKENS_SERVICE_BASEURL:localhost:8080}
+          predicates:
+            - Path=/signin
+            - Method=POST
+          filters:
+            - SetPath=/api/account/login
