@@ -61,7 +61,7 @@ services:
       - henskens-service
     environment:
       USER_SERVICE_BASEURL: user-service:8080
-      EXPERIENCE_SERVICE_BASEURL: experience-service:8081
+      EXPERIENCE_SERVICE_BASEURL: experience-service:8082
 
 volumes:
   user-data:
