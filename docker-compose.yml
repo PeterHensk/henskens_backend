@@ -57,8 +57,7 @@ services:
       - user-data:/var/lib/mysql
 
   mongo-experience:
-    image: mongo:latest
-    command: ["mongod", "--setParameter", "enableLocalhostAuthBypass=0"]
+    image: mongo:4
     ports:
       - "27017:27017"
     volumes:
