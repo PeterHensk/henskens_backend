@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  henskens-service:
+    build:
+      context: ./henskens-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - couchbase-henskens
+    image: peterhenskens/henskens-service
+
+  experience-service:
+    build:
+      context: ./experience-service
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo-experience
+    image: peterhenskens/experience-service
+    links:
+        - mongo-experience
+    environment:
+        MONGODB_PORT: 27017
+        MONGODB_HOST: mongo-experience
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    depends_on:
+      - henskens-service
+      - experience-service
+    image: peterhenskens/api-gateway
+    ports:
+     - 8083:8083
+    links:
+     - experience-service
+     - henskens-service
+    environment:
+     HENSKENS_SERVICE_BASEURL: henskens-service:8080
+     experience_SERVICE_BASEURL: experience-service:8081
+
+  couchbase-henskens:
+    image: couchbase:latest
+    ports:
+      - "8091:8091"
+    environment:
+      COUCHBASE_ROOT_PASSWORD: g9VNheVwrF@!3wS
+      COUCHBASE_BUCKET: experience
+      COUCHBASE_BUCKET_PASSWORD: g9VNheVwrF@!3wS
+    volumes:
+      - couchbase-data:/opt/couchbase/var
+
+  mongo-experience:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: administrator
+      MONGO_INITDB_ROOT_PASSWORD: g9VNheVwrF3wS
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  couchbase-data:
+  mongodb-data:
