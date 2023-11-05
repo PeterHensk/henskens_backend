@@ -57,11 +57,12 @@ services:
       - user-data:/var/lib/mysql
 
   mongo-experience:
-    image: mongo:4
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
       - experience-data:/data/db
+    command: ["mongod", "--fork", "--syslog", "--setParameter", "enableLocalhostAuthBypass=0", "--setParameter", "config.system.sessions.createCollection=true"]
 
 volumes:
   user-data:
