@@ -1,0 +1,10 @@
+tech\henskens\experienceservice\Controller\ExperienceController.class
+tech\henskens\experienceservice\dto\ExperienceRequest.class
+tech\henskens\experienceservice\ExperienceServiceApplication.class
+tech\henskens\experienceservice\model\Experience$ExperienceBuilder.class
+tech\henskens\experienceservice\dto\ExperienceResponse.class
+tech\henskens\experienceservice\model\Experience.class
+tech\henskens\experienceservice\service\ExperienceService.class
+tech\henskens\experienceservice\dto\ExperienceResponse$ExperienceResponseBuilder.class
+tech\henskens\experienceservice\dto\ExperienceRequest$ExperienceRequestBuilder.class
+tech\henskens\experienceservice\Repository\ExperienceRepository.class
