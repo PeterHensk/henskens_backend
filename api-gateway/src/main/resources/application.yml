@@ -51,4 +51,4 @@ spring:
           predicates:
             - Path=/getCsrfToken
           filters:
-            - RewritePath=/getCsrfToken, /csrf/getCsrfToken
+            - SetPath=/getCsrfToken

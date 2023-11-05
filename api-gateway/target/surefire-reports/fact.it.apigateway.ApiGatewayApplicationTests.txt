@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: fact.it.apigateway.ApiGatewayApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.549 s - in fact.it.apigateway.ApiGatewayApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.566 s - in fact.it.apigateway.ApiGatewayApplicationTests
