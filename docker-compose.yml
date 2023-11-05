@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  mongo-experience:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - experience-data:/data/db
+
+  mysql-user:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: abc123
+    volumes:
+      - user-data:/var/lib/mysql
+
   user-service:
     build:
       context: ./user-service
@@ -46,24 +62,6 @@ services:
     environment:
       USER_SERVICE_BASEURL: user-service:8080
       EXPERIENCE_SERVICE_BASEURL: experience-service:8081
-
-  mysql-user:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: abc123
-    volumes:
-      - user-data:/var/lib/mysql
-
-  mongo-experience:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
-      - experience-data:/data/db
-    command: ["--setParameter", "config.system.sessions.createCollection=false"]
 
 volumes:
   user-data:
