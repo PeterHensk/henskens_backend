@@ -24,7 +24,7 @@ public class ExperienceService {
     @PostConstruct
     public void loadData(){
         logger.info("Loading data...");
-        if (experienceRepository.count() < 3) {
+        if (experienceRepository.count() < 2) {
             Experience experience = new Experience();
             experience.setId(Experience.generateId());
             experience.setTitle("My first app");
