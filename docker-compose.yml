@@ -58,6 +58,7 @@ services:
 
   mongo-experience:
     image: mongo:latest
+    command: ["mongod", "--setParameter", "enableLocalhostAuthBypass=0"]
     ports:
       - "27017:27017"
     volumes:
