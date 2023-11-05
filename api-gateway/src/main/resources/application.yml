@@ -46,3 +46,9 @@ spring:
             - Method=POST
           filters:
             - SetPath=/api/account/login
+        - id: csrf-token-service
+          uri: http://${API_GATEWAY_BASEURL:localhost:8080}
+          predicates:
+            - Path=/getCsrfToken
+          filters:
+            - RewritePath=/getCsrfToken, /csrf/getCsrfToken

@@ -62,6 +62,7 @@ services:
     environment:
       USER_SERVICE_BASEURL: user-service:8080
       EXPERIENCE_SERVICE_BASEURL: experience-service:8082
+      API_GATEWAY_BASEURL: api-gateway:8083
 
 volumes:
   user-data:
