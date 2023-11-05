@@ -37,7 +37,7 @@ services:
     build:
       context: ./experience-service
     ports:
-      - "8081:8081"
+      - "8082:8082"
     depends_on:
       - mongo-experience
     image: peterhenskens/experience-service
