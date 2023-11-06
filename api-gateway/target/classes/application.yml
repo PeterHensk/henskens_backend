@@ -10,18 +10,18 @@ logging:
     org.springframework.security: TRACE
 
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_CLIENTID}
-            client-secret: ${GOOGLE_CLIENTSECRET}
-            scope: openid,profile,email
-      resourceserver:
-        jwt:
-          issuer-uri: https://accounts.google.com
-          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: ${GOOGLE_CLIENTID}
+#            client-secret: ${GOOGLE_CLIENTSECRET}
+#            scope: openid,profile,email
+#      resourceserver:
+#        jwt:
+#          issuer-uri: https://accounts.google.com
+#          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   cloud:
     gateway:
       routes:
@@ -46,9 +46,24 @@ spring:
             - Method=POST
           filters:
             - SetPath=/api/account/login
-        - id: csrf-token-service
-          uri: http://${API_GATEWAY_BASEURL:localhost:8080}
+        - id: account-service
+          uri: http://${USER_SERVICE_BASEURL:localhost:8080}
           predicates:
-            - Path=/getCsrfToken
+            - Path=/account/{emailAddress}
+            - Method=GET
           filters:
-            - SetPath=/getCsrfToken
+            - SetPath=/api/account/account/{emailAddress}
+        - id: experience-service
+          uri: http://${EXPERIENCE_SERVICE_BASEURL:localhost:8082}
+          predicates:
+            - Path=/experience
+            - Method=GET
+          filters:
+            - SetPath=/api/experience/all
+#        - id: csrf-token-service
+#          uri: http://${API_GATEWAY_BASEURL:localhost:8083}
+#          predicates:
+#            - Path=/csrf
+#            - Method=GET
+#          filters:
+#            - SetPath=/api/gateway/csrf

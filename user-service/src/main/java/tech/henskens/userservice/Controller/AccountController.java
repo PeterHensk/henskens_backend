@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.henskens.userservice.Service.AccountService;
+import tech.henskens.userservice.dto.AccountByEmail;
 import tech.henskens.userservice.dto.AccountResponse;
 import tech.henskens.userservice.dto.LoginRequest;
 import tech.henskens.userservice.model.Account;
@@ -21,6 +22,17 @@ public class AccountController {
     @ResponseStatus(HttpStatus.OK)
     public List<AccountResponse> getAllAccounts(){
         return accountService.getAllAccounts();
+    }
+
+    @GetMapping("/account/{emailAddress}")
+    public ResponseEntity<AccountByEmail> getAccountByEmail(@PathVariable("emailAddress") String emailAddress) {
+        AccountByEmail accountDTO = accountService.findByEmailAddress(emailAddress);
+
+        if (accountDTO != null) {
+            return new ResponseEntity<>(accountDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/login")

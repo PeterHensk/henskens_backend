@@ -1,10 +1,12 @@
 tech\henskens\userservice\dto\AccountResponse$AccountResponseBuilder.class
+tech\henskens\userservice\dto\AccountByEmail.class
+tech\henskens\userservice\dto\LoginRequest.class
+tech\henskens\userservice\model\Account.class
+tech\henskens\userservice\Controller\AccountController.class
 tech\henskens\userservice\Repository\AccountRepository.class
 tech\henskens\userservice\UserServiceApplication.class
 tech\henskens\userservice\Service\AccountService.class
 tech\henskens\userservice\Service\AccountService$UserAlreadyExistsException.class
+tech\henskens\userservice\dto\AccountByEmail$AccountByEmailBuilder.class
 tech\henskens\userservice\dto\LoginRequest$LoginRequestBuilder.class
-tech\henskens\userservice\dto\LoginRequest.class
-tech\henskens\userservice\model\Account.class
-tech\henskens\userservice\Controller\AccountController.class
 tech\henskens\userservice\dto\AccountResponse.class

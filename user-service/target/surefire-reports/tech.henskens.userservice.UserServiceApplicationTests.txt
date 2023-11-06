@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tech.henskens.userservice.UserServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.573 s - in tech.henskens.userservice.UserServiceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.448 s - in tech.henskens.userservice.UserServiceApplicationTests

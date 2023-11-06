@@ -1,3 +1,4 @@
 fact\it\apigateway\ApiGatewayApplication.class
 fact\it\apigateway\config\SecurityConfig.class
+fact\it\apigateway\service\GatewayService.class
 fact\it\apigateway\controller\CsrfTokenController.class

@@ -2,8 +2,10 @@ package tech.henskens.userservice.Service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.henskens.userservice.Repository.AccountRepository;
+import tech.henskens.userservice.dto.AccountByEmail;
 import tech.henskens.userservice.dto.AccountResponse;
 import tech.henskens.userservice.dto.LoginRequest;
 import tech.henskens.userservice.model.Account;
@@ -17,6 +19,7 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
+
     @PostConstruct
     public void loadData() {
         if (accountRepository.count() == 0) {
@@ -89,6 +92,24 @@ public class AccountService {
             account.setLastLogin(LocalDateTime.now());
             accountRepository.save(account);
         }
+    }
+
+    public AccountByEmail findByEmailAddress(String emailAddress){
+        Account account = accountRepository.findByEmailAddress(emailAddress);
+        if (account != null) {
+            // Convert Account entity to DTO
+            return convertToDTO(account);
+        } else {
+            return null;
+        }
+    }
+
+    private AccountByEmail convertToDTO(Account account) {
+        AccountByEmail dto = new AccountByEmail();
+        dto.setId(account.getId());
+        dto.setEmailAddress(account.getEmailAddress());
+        dto.setFirstName(account.getFirstName());
+        return dto;
     }
 
     public static class UserAlreadyExistsException extends RuntimeException {
