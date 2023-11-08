@@ -38,6 +38,7 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         if (accountService.validateLogin(loginRequest)) {
+            accountService.updateLastLogin(loginRequest.getEmail());
             return new ResponseEntity<>("Login successful", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
