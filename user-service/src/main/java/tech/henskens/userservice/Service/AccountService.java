@@ -2,7 +2,6 @@ package tech.henskens.userservice.Service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.henskens.userservice.Repository.AccountRepository;
 import tech.henskens.userservice.dto.AccountByEmail;
@@ -31,6 +30,7 @@ public class AccountService {
             account1.setPhoneNumber("0488.12.13.14");
             account1.setRole("admin");
             account1.setUpdated(LocalDateTime.now());
+            account1.setLastLogin(LocalDateTime.now());
             accountRepository.save(account1);
 
             Account account2 = new Account();
@@ -41,6 +41,7 @@ public class AccountService {
             account2.setPhoneNumber("0488.12.13.14");
             account2.setRole("user");
             account2.setUpdated(LocalDateTime.now());
+            account2.setLastLogin(LocalDateTime.now());
             accountRepository.save(account2);
 
         }
@@ -64,24 +65,28 @@ public class AccountService {
         response.setEmailAddress(account.getEmailAddress());
         response.setHashPassword(account.getHashPassword());
         response.setPhoneNumber(account.getPhoneNumber());
+        response.setLastLogin(account.getLastLogin());
+        response.setRole(account.getRole());
         return response;
     }
 
-    public Account registerUser(Account account) {
+    public void registerUser(Account account) {
         // Check if the user already exists by email
         Account existingUser = accountRepository.findByEmailAddress(account.getEmailAddress());
         if (existingUser != null) {
             throw new UserAlreadyExistsException("User with this email already exists.");
         }
         account.setRole("user");
+        account.setUpdated(LocalDateTime.now());
 
         // Save the new user
-        return accountRepository.save(account);
+        accountRepository.save(account);
     }
 
     public boolean validateLogin(LoginRequest loginRequest) {
         Account account = accountRepository.findByEmailAddress(loginRequest.getEmail());
         // Return false when the email is not found
+        // Credentials are not valid
         return account != null && account.getHashPassword().equals(loginRequest.getPassword()); // Credentials are valid
     }
 

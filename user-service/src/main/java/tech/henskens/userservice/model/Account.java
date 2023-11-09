@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -25,4 +26,5 @@ public class Account {
     private String role;
     private LocalDateTime updated;
     private LocalDateTime lastLogin;
+
 }
